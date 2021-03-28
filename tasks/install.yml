@@ -9,7 +9,7 @@
   - name: Install zerotier-one
     package:
       name: zerotier-one
-      state: present
+      state: latest 
       update_cache: yes
     register: zerotier_client
 
