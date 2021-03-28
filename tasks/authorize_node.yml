@@ -2,10 +2,11 @@
 - block:
   - name: Authorize new members to network
     uri:
-      url: "{{ zerotier_api_url }}/api/network/{{ zerotier_network_id }}/member/{{ ansible_local['zerotier']['node_id'] }}"
+      url: "{{ zerotier_api_url }}/controller/network/{{ zerotier_network_id }}/member/{{ ansible_local['zerotier']['node_id'] }}"
       method: POST
       headers:
-        Authorization: bearer {{ zerotier_api_accesstoken }}
+        X-ZT1-Auth: "{{ zerotier_api_accesstoken }}"
+#        Authorization: bearer {{ zerotier_api_accesstoken }}
       body:
         hidden: false
         config:
@@ -19,10 +20,11 @@
 
   - name: Configure members in network
     uri:
-      url: "{{ zerotier_api_url }}/api/network/{{ zerotier_network_id }}/member/{{ ansible_local['zerotier']['node_id'] }}"
+      url: "{{ zerotier_api_url }}/controller/network/{{ zerotier_network_id }}/member/{{ ansible_local['zerotier']['node_id'] }}"
       method: POST
       headers:
-        Authorization: bearer {{ zerotier_api_accesstoken }}
+        X-ZT1-Auth: "{{ zerotier_api_accesstoken }}"
+#        Authorization: bearer {{ zerotier_api_accesstoken }}
       body:
         name: "{{ zerotier_member_register_short_hostname | ternary(inventory_hostname_short, inventory_hostname) }}"
         description: "{{ zerotier_member_description | default() }}"
